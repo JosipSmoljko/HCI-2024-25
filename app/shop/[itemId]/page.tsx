@@ -25,7 +25,7 @@ const getPhoto = async (id: string): Promise<Photo> => {
 };
 
 export default async function ShopPost({ params }: PhotoPageProps) {
-  const { itemId } = await params;
+  const { itemId } = params;
   const photo = await getPhoto(itemId);
 
   return (
