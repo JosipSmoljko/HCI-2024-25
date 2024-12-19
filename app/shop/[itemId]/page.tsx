@@ -6,10 +6,6 @@ export const metadata: Metadata = {
   title: "Product Details",
 };
 
-type PhotoPageProps = {
-  params: { itemId: string };
-};
-
 export type Photo = {
   albumId: number;
   id: number;
@@ -19,15 +15,20 @@ export type Photo = {
 };
 
 const getPhoto = async (id: string): Promise<Photo> => {
-  const data = await fetch(`${BASE_API_URL}/photos/${id}`);
-  if (!data.ok) {
+  const response = await fetch(`${BASE_API_URL}/photos/${id}`);
+  if (!response.ok) {
     throw new Error("Failed to fetch photo");
   }
-  return data.json();
+  return response.json();
 };
 
-export default async function ShopPost({ params }: { params: { itemId: string } }) {
+type ShopPostProps = {
+  params: { itemId: string };
+};
+
+export default async function ShopPost({ params }: ShopPostProps) {
   const { itemId } = params;
+
   let photo: Photo | null = null;
 
   try {
