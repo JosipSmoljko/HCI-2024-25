@@ -18,19 +18,27 @@ export type Photo = {
   thumbnailUrl: string;
 };
 
-
 const getPhoto = async (id: string): Promise<Photo> => {
   const data = await fetch(`${BASE_API_URL}/photos/${id}`);
+  if (!data.ok) {
+    throw new Error("Failed to fetch photo");
+  }
   return data.json();
 };
 
-export default async function ShopPost({ params }: PhotoPageProps) {
+export default async function ShopPost({ params }: { params: { itemId: string } }) {
   const { itemId } = params;
-  const photo = await getPhoto(itemId);
+  let photo: Photo | null = null;
+
+  try {
+    photo = await getPhoto(itemId);
+  } catch (error) {
+    console.error("Error fetching photo:", error);
+  }
 
   return (
     <main className="flex flex-col items-center min-h-screen max-w-5xl m-auto p-10">
-      {photo && (
+      {photo ? (
         <div className="flex flex-wrap">
           <div className="w-full md:w-1/2 p-4">
             <img src={photo.url} alt={photo.title} className="w-full h-auto" />
@@ -42,6 +50,8 @@ export default async function ShopPost({ params }: PhotoPageProps) {
             <p className="text-xl p-4">{photo.title}</p>
           </div>
         </div>
+      ) : (
+        <p className="text-red-500">Failed to load photo details.</p>
       )}
     </main>
   );
