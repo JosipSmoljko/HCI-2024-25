@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { Metadata } from "next";
 import { BASE_API_URL } from "../page";
 
@@ -22,11 +21,8 @@ const getPhoto = async (id: string): Promise<Photo> => {
   return response.json();
 };
 
-type ShopPostProps = {
-  params: { itemId: string };
-};
-
-export default async function ShopPost({ params }: ShopPostProps) {
+// Dynamic route type
+export default async function ShopPost({ params }: { params: { itemId: string } }) {
   const { itemId } = params;
 
   let photo: Photo | null = null;
