@@ -44,4 +44,4 @@ export default async function ShopPage() {
       </div>
     </main>
   );
-}   */
+}    */
