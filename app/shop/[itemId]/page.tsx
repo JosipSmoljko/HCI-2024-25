@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+/* <<<<<<< HEAD
 import Link from "next/link";
 =======
 >>>>>>> 04c396cb04654b7e0fc58329ce3bb4927c17399b
@@ -86,3 +86,4 @@ export default async function ShopPost({ params }: { params: { itemId: string } 
     </main>
   );
 }
+ */

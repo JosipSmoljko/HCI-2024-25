@@ -1,4 +1,4 @@
-import Link from "next/link";
+/* import Link from "next/link";
 import type { Metadata } from "next";
 
 export type Photo = {
@@ -44,4 +44,4 @@ export default async function ShopPage() {
       </div>
     </main>
   );
-}  
+}   */
