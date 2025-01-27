@@ -1,6 +1,5 @@
 import { Metadata } from "next";
-import { BASE_API_URL } from "../page";
-
+import { BASE_API_URL } from "../../config"; 
 export const metadata: Metadata = {
   title: "Product Details",
 };
