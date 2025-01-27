@@ -1,4 +1,4 @@
-/* import Link from "next/link";
+import Link from "next/link";
 import { Metadata } from "next";
 import { BASE_API_URL } from "../page";
 
@@ -41,9 +41,7 @@ export default async function ShopPost({ params }: PhotoPageProps) {
             <p className="text-xl p-4">{photo.title}</p>
           </div>
         </div>
-      ) : (
-        <p className="text-red-500">Failed to load photo details.</p>
-      )}
+      ) }
     </main>
   );
-} */
+} 

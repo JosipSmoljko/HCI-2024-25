@@ -1,9 +1,4 @@
-export default function Home() {
-  return (
-    <h1 className="flex justify-center p-14 text-4xl">shop page</h1>
-  )
-}
-/* import Link from "next/link";
+ import Link from "next/link";
 
 import type { Metadata } from "next";
 
@@ -50,4 +45,4 @@ export default async function ShopPage() {
       </div>
     </main>
   );
-}    */
+}    
