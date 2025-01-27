@@ -1,6 +1,7 @@
  import Link from "next/link";
 
 import type { Metadata } from "next";
+import { BASE_API_URL } from "../config";
 
 export type Photo = {
   albumId: number;
@@ -16,7 +17,6 @@ export const metadata: Metadata = {
 };
 
 
-export const BASE_API_URL = "https://jsonplaceholder.typicode.com";
 
 async function getPhotos(): Promise<Photo[]> {
   const data = await fetch(`${BASE_API_URL}/photos?_limit=50`);
