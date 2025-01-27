@@ -20,10 +20,13 @@ export type Photo = {
 
 const getPhoto = async (id: string): Promise<Photo> => {
   const data = await fetch(`${BASE_API_URL}/photos/${id}`);
+  if (!data.ok) {
+    throw new Error("Failed to fetch photo");
+  }
   return data.json();
 };
 
-export default async function ShopPost({ params }: PhotoPageProps) {
+export default async function ShopPost({ params }: { params: { itemId: string } }) {
   const { itemId } = params;
   const photo = await getPhoto(itemId);
 
@@ -41,7 +44,7 @@ export default async function ShopPost({ params }: PhotoPageProps) {
             <p className="text-xl p-4">{photo.title}</p>
           </div>
         </div>
-      ) }
+      )}
     </main>
   );
-} 
+}
