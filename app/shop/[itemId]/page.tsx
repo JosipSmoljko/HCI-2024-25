@@ -5,12 +5,12 @@ export const metadata: Metadata = {
   title: "Product Details",
 };
 
-//define props for the dynamic route
+// Define props for the dynamic route
 type PhotoPageProps = {
-  params: { itemId: string };
+  params: { itemId: string }; // Static, not async
 };
 
-// define the shape of the photo data
+// Define the shape of the photo data
 export type Photo = {
   albumId: number;
   id: number;
@@ -19,7 +19,7 @@ export type Photo = {
   thumbnailUrl: string;
 };
 
-// fetch a sigle photo by ID
+// Fetch a single photo by ID
 const getPhoto = async (id: string): Promise<Photo> => {
   const response = await fetch(`${BASE_API_URL}/photos/${id}`);
   if (!response.ok) {
@@ -28,11 +28,12 @@ const getPhoto = async (id: string): Promise<Photo> => {
   return response.json();
 };
 
-// Cmponent for rendering photo details
+// Component for rendering photo details
 export default async function ShopPost({ params }: PhotoPageProps) {
-  const { itemId } = params;
+  // Destructure itemId directly
+  const { itemId } = await Promise.resolve(params); // Ensure params are resolved
 
-  // fetch the photoo data
+  // Fetch the photo data
   const photo = await getPhoto(itemId);
 
   return (
