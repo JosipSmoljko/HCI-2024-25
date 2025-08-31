@@ -1,17 +1,25 @@
 import { client } from "@/sanity/client";
-import React from "react";
 
-type Props = { params: { id: string } };
+type Props = {
+  params: { id: string } | Promise<{ id: string }>; // allow Promise
+};
 
 export default async function ProductPage({ params }: Props) {
-  const product = await client.fetch(`*[_type=="product" && _id == $id][0]{
-    _id,
-    name,
-    price,
-    description,
-    animal,
-    "imageUrl": image.asset->url
-  }`, { id: params.id });
+  // await params if it's a Promise
+  const resolvedParams = await params;
+  const { id } = resolvedParams;
+
+  const product = await client.fetch(
+    `*[_type=="product" && _id == $id][0]{
+      _id,
+      name,
+      price,
+      description,
+      animal,
+      "imageUrl": image.asset->url
+    }`,
+    { id }
+  );
 
   if (!product) return <p className="text-center mt-10">Product not found.</p>;
 
