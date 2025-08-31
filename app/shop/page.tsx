@@ -1,48 +1,22 @@
- import Link from "next/link";
 
-import type { Metadata } from "next";
-import { BASE_API_URL } from "../config";
-
-export type Photo = {
-  albumId: number;
-  id: number;
-  title: string;
-  url: string;
-  thumbnailUrl: string;
-};
-
-
-export const metadata: Metadata = {
-  title: "Products",
-};
-
-
-
-async function getPhotos(): Promise<Photo[]> {
-  const data = await fetch(`${BASE_API_URL}/photos?_limit=50`);
-  return data.json();
-}
+import { client } from "@/sanity/client";
+import React from "react";
+import ShopGrid from "../components/ShopGrid";
 
 export default async function ShopPage() {
-  const photos = await getPhotos();
+  const products = await client.fetch(`*[_type=="product"]{
+    _id,
+    name,
+    price,
+    description,
+    animal,
+    "imageUrl": image.asset->url
+  }`);
 
-  return  (
-    <main className="flex flex-col items-center min-h-screen max-w-5xl m-auto p-10">
-      <h1 className="text-3xl font-bold p-10">Shop Index Page</h1>
-      <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-4 gap-4">
-        {photos.map((photo) => (
-          <div key={photo.id} className="bg-white rounded-lg shadow-lg">
-            <Link href={`shop/${photo.id}`}>
-              
-                <img src={photo.url} alt={photo.title} className="w-full h-56 object-cover rounded-t-lg" />
-                <div className="p-4">
-                  <span className="text-xl text-zinc-600 hover:underline">{photo.title}</span>
-                </div>
-             
-            </Link>
-          </div>
-        ))}
-      </div>
+  return (
+    <main className="flex flex-col items-center min-h-screen max-w-6xl m-auto p-6">
+      <h1 className="text-4xl font-bold mb-10">Pet Store</h1>
+      <ShopGrid key="shop-grid" products={products} />
     </main>
   );
-}    
+}
